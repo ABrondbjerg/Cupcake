@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<title>Frontpage</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cupcake</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-<h1>Welcome to the Javalin / Thymeleaf demo</h1>
-<p>This is your first web application in this world</p>
+<h1>velkmmen til cuplort</h1>
+<p>please login:</p>
+
+<form method ="post">
+    <input type = "text" name = "username" placeholder="Enter your Username"/>
+    <input  type = "password" name = "password" placeholder="Enter your Password">
+    <button type = "submit" formaction="/login">Log på</button>
+</form>
 </body>
 </html>
