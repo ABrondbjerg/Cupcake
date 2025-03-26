@@ -20,7 +20,7 @@ public class Main {
     private static final String DB = "databasename";
 
     
-//    private static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
+   private static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
 
     public static void main(String[] args)
     {
@@ -35,7 +35,8 @@ public class Main {
         // Routing
 
         app.get("/", ctx ->  ctx.render("index.html"));
-        UserController.addRoutes(app);
+        UserController.addRoutes(app,connectionPool);
+
     }
 
 }
