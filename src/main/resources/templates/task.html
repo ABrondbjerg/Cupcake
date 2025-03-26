@@ -7,7 +7,23 @@
     <title>cupcake</title>
 </head>
 <body>
-<h1> your tasks</h1>
+<h1>Welcome, <span th:text="${session.currentUser.username}"></span></h1>
+<h2> your tasks</h2>
 de er her
+
+<table>
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task: ${taskList}" >
+        <td th:text="${task.name}"></td>
+    <td><button type = "submit">Edit</button><td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
