@@ -11,34 +11,30 @@ import java.sql.SQLException;
 public class UserMapper
 {
 
-    public static User login(String userName, String password, ConnectionPool connectionPool) throws DatabaseException
-    {
-        String sql = "select * from users where username=? and password=?";
+    public static User login(String userName, String password, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM users WHERE user_name=? AND password=?";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
-        )
-        {
+        ) {
             ps.setString(1, userName);
-            ps.setString(2, password);
+            ps.setString(2, password); // Now we check password in SQL
 
             ResultSet rs = ps.executeQuery();
-            if (rs.next())
-            {
+            if (rs.next()) {
                 int id = rs.getInt("user_id");
                 String role = rs.getString("role");
                 return new User(id, userName, password, role);
-            } else
-            {
-                throw new DatabaseException("Fejl i login. Prøv igen");
+            } else {
+                throw new DatabaseException("Fejl i login. Forkert brugernavn eller adgangskode.");
             }
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DatabaseException("DB fejl", e.getMessage());
         }
     }
+
+
 
     public static void createuser(String userName, String password, ConnectionPool connectionPool) throws DatabaseException
     {

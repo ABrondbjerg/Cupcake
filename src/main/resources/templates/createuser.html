@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>cupcake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+<h1>Velkommen til Cupcake</h1>
+<p>Please login:</p>
+
+<form class ="login-form" method="post">
+  <input type = "text" name = "username" placeholder="Enter your Username"/>
+  <input  type = "password" name = "password1" placeholder="Enter your Password"/>
+  <input  type = "password" name = "password2" placeholder="Enter your Password again"/>
+  <button type = "submit" formaction="/createuser">Create user</button>
+
+  <div><p th:text="${message}"></p></div>
+</form>
+
+</body>
+</html>
