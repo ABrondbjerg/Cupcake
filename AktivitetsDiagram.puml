@@ -1,0 +1,38 @@
+@startuml
+start
+    :Bruger besøger forsiden;
+    :Bruger vælger 'Login' eller 'Opret bruger';
+
+    if (Har allerede en konto?) then (Ja)
+        :Indtaster login-oplysninger;
+        if (Login succesfuldt?) then (Ja)
+            :Bruger bliver logget ind;
+            :kigger på hvad for nogle toppings og bottoms der er;
+        else (Nej)
+            :Fejlmeddelelse vises;
+            :Tilbage til login;
+        endif
+    else (Nej)
+        :Bruger opretter en konto;
+        :Bliver sendt tilbage til login;
+        :Indtaster login-oplysninger;
+        if (Login succesfuldt?) then (Ja)
+            :Bruger bliver logget ind;
+            :kigger på hvad for nogle toppings og bottoms der er;
+        else (Nej)
+            :Fejlmeddelelse vises;
+            :Tilbage til login;
+        endif
+    endif
+
+    if (Finder bottoms og topping?) then (Ja)
+        :Tilføjer til kurv;
+        :Går til indkøbskurv;
+        :Gennemgår bestilling;
+        :Modtager bekræftelse;
+        stop
+    else (Nej)
+        :Forlader hjemmesiden;
+        stop
+    endif
+@enduml
