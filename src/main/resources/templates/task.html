@@ -8,6 +8,15 @@
 </head>
 <body>
 <h1>Welcome, <span th:text="${session.currentUser.username}"></span></h1>
+
+<!-- Skal nok rykkes - Add task -->
+<form method="post">
+    <input type="text" name="task" placeholder="Enter task to be done"/>
+    <button type="submit" formaction="add task">Add</button>
+</form>
+
+<button type="submit" name="taskId" th:value="${task.taskid}" formaction="deletetask">Delete</button>
+<!-- Skal nok rykkes ^^^^^^ -->
 <h2> your tasks</h2>
 de er her
 
