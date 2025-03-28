@@ -2,13 +2,11 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.CupcakeController;
 import app.controllers.UserController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
-import org.eclipse.jetty.server.Authentication;
-
-import java.util.logging.Logger;
 
 public class Main {
 
@@ -36,7 +34,7 @@ public class Main {
 
         app.get("/", ctx ->  ctx.render("index.html"));
         UserController.addRoutes(app,connectionPool);
-
+        CupcakeController.addRoutes(app, connectionPool);
     }
 
 }
