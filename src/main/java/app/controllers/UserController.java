@@ -15,6 +15,10 @@ public class UserController {
     app.post("/login", ctx ->login(ctx, connectionPool));
     app.get("createuser",ctx -> ctx.render("createuser.html"));
     app.post("createuser",ctx -> createUser(ctx,connectionPool));
+    app.get("/admin", ctx-> {
+        ensureAdmin(ctx);
+        ctx.render("admin_placeholder.html");
+    });
     }
 
 
@@ -64,14 +68,32 @@ public class UserController {
         try {
             User user = UserMapper.login(username,password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
-            ctx.render("cupcake.html");
 
-        } catch (DatabaseException e)
-        {
+            //Omdirigere dig alt efter hvilken rolle du har
+            if ("admin".equals(user.getRole())){
+                //Admin users bliver ført til admin siden
+                ctx.render("admin_placeholder.html");
+            }else{
+                //Normale users går til cupcake.html siden
+                ctx.render("cupcake.html");
+            }
+
+        } catch (DatabaseException e) {
+            //Fanger login fejl
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
 
+    }
+
+    //Ny metode der sikre at det kun er admins der kan komme ind på admin siden
+    public static void ensureAdmin(Context ctx){
+        User currentUser = ctx.sessionAttribute("currentUser");
+        // Checker om user er logget ind og om deres rolle er admin
+        if (currentUser == null || !"admin".equals(currentUser.getRole())){
+            //Hvis de ikke er Admin, bliver de sendt til cupcake.html
+            ctx.redirect("/cupcake.html");
+        }
     }
 
 }
