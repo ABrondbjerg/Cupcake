@@ -24,9 +24,18 @@ public class UserController {
         String password1 = ctx.formParam("password1");
         String password2 = ctx.formParam("password2");
 
+
+        if (!username.matches("[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")){
+            ctx.attribute("message","Du skal bruge en gyldig email som brugernavn.");
+            ctx.render("createuser.html");
+            return;
+        }
+
+
+
         if(password1.equals(password2)) {
             try {
-                UserMapper.createuser(username, password1, connectionPool);
+                UserMapper.createuser(username, password1, "user", connectionPool);
                 ctx.attribute("message", "Du er hermed oprettet med brugernavn: " + username + ". Nu skal du logge på.");
                 ctx.render("index.html");
 
