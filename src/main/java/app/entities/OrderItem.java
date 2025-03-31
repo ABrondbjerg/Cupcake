@@ -1,91 +1,85 @@
-package app.entities;
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Cupcake</title>
+</head>
+<body>
 
-public class OrderItem {
-    private int topId;
-    private int bottomId;
-    private String topName;
-    private String bottomName;
-    private double totalPrice;
-    private double topPrice;
-    private double bottomPrice;
+<h2>Choose a Cupcake</h2>
 
-    public OrderItem(int topId, int bottomId, String topName, String bottomName, double totalPrice, double topPrice, double bottomPrice) {
-        this.topId = topId;
-        this.bottomId = bottomId;
-        this.topName = topName;
-        this.bottomName = bottomName;
-        this.totalPrice = totalPrice;
-        this.topPrice = topPrice;
-        this.bottomPrice = bottomPrice;
-    }
+<!-- Form to submit the selection -->
+<form method="post" action="/add-to-basket">
+    <label for="top">Choose a Topping:</label>
+    <select id="top" name="top" required>
+        <option value="">Select a topping</option>
+        <option value="1">Chocolate (5.00 DKK)</option>
+        <option value="2">Blueberry (5.00 DKK)</option>
+        <option value="3">Raspberry (5.00 DKK)</option>
+        <option value="4">Crispy (6.00 DKK)</option>
+        <option value="5">Strawberry (6.00 DKK)</option>
+        <option value="6">Rum/Raisin (7.00 DKK)</option>
+        <option value="7">Orange (8.00 DKK)</option>
+        <option value="8">Lemon (8.00 DKK)</option>
+        <option value="9">Blue Cheese (9.00 DKK)</option>
+    </select>
 
-    public int getTopId() {
-        return topId;
-    }
+    <br><br>
 
-    public void setTopId(int topId) {
-        this.topId = topId;
-    }
+    <!-- Quantity Selection -->
+    <label for="bottom">Choose a Bottom:</label>
+    <select id="bottom" name="bottom" required>
+        <option value="">Select a bottom</option>
+        <option value="1">Chocolate (5.00 DKK)</option>
+        <option value="2">Vanilla (5.00 DKK)</option>
+        <option value="3">Nutmeg (5.00 DKK)</option>
+        <option value="4">Pistachio (6.00 DKK)</option>
+        <option value="5">Almond (7.00 DKK)</option>
+    </select>
 
-    public int getBottomId() {
-        return bottomId;
-    }
+    <br><br>
 
-    public void setBottomId(int bottomId) {
-        this.bottomId = bottomId;
-    }
 
-    public String getTopName() {
-        return topName;
-    }
+    <label for="quantity">Choose quantity:</label>
+    <select id="quantity" name="quantity" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
 
-    public void setTopName(String topName) {
-        this.topName = topName;
-    }
 
-    public String getBottomName() {
-        return bottomName;
-    }
+    <button type="submit">Add</button>
+</form>
 
-    public void setBottomName(String bottomName) {
-        this.bottomName = bottomName;
-    }
+<hr>
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
+<h2>Basket</h2>
+<ul>
+    <li th:each="cupcake, iterStat : ${basket}">
+        <span th:text="|${cupcake.quantity} ${cupcake.toppingName} with ${cupcake.bottomName} - ${cupcake.totalPrice} DKK|"></span>
+        <!-- Delete Form with item index -->
+        <form method="post" action="/remove-from-basket" style="display:inline;">
+            <input type="hidden" name="index" th:value="${iterStat.index}" />
+            <button type="submit">X</button>
+        </form>
+    </li>
+</ul>
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+<!-- Total Price Display -->
+<h3>Total Price: <span th:text="${totalPrice}"></span> DKK</h3>
 
-    public double getTopPrice() {
-        return topPrice;
-    }
+<!-- Pay Button -->
+<form method="post" action="/pay">
+    <button type="submit">Pay</button>
+</form>
 
-    public void setTopPrice(double topPrice) {
-        this.topPrice = topPrice;
-    }
-
-    public double getBottomPrice() {
-        return bottomPrice;
-    }
-
-    public void setBottomPrice(double bottomPrice) {
-        this.bottomPrice = bottomPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderItem{" +
-                "topId=" + topId +
-                ", bottomId=" + bottomId +
-                ", topName='" + topName + '\'' +
-                ", bottomName='" + bottomName + '\'' +
-                ", totalPrice=" + totalPrice +
-                ", topPrice=" + topPrice +
-                ", bottomPrice=" + bottomPrice +
-                '}';
-    }
-}
-
+</body>
+</html>
