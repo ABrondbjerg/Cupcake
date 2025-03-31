@@ -1,88 +1,37 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Cupcake Ordrer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      display: flex;
-      gap: 20px;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background-color: lightgray;
-    }
-  </style>
+  <link rel="stylesheet" href="/public/css/adminStyle.css">
 </head>
 <body>
 
-<h1>Admin - Cupcake Ordrer</h1>
+<header class="header">
+  <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
+  <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
+</header>
 
-<div class="container">
-  <!-- Kunder tabel -->
-  <table>
-    <thead>
-    <tr>
-      <th>Kunde ID</th>
-      <th>Navn</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>1</td>
-      <td>Emma Hansen</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Johan Larsen</td>
-    </tr>
-    </tbody>
-  </table>
-
-  <!-- Ordre tabel -->
-  <table>
-    <thead>
-    <tr>
-      <th>Ordre ID</th>
-      <th>Bottom</th>
-      <th>Topping</th>
-      <th>Antal</th>
-      <th>Dato</th>
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>#1001</td>
-      <td>Chokolade</td>
-      <td>Jordbær glasur</td>
-      <td>12</td>
-      <td>28-03-2025</td>
-      <td>Behandles</td>
-    </tr>
-    <tr>
-      <td>#1002</td>
-      <td>Vanilje</td>
-      <td>Chokolade glasur</td>
-      <td>24</td>
-      <td>28-03-2025</td>
-      <td>Afsendt</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
+<table>
+  <thead>
+  <tr>
+    <th>Ordre ID</th>
+    <th>Bottom</th>
+    <th>Topping</th>
+    <th>Antal</th>
+    <th>Dato</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="order : ${orders}">
+    <td th:text="'#' + ${order.orderId}"></td>
+    <td th:text="${order.bottomName}"></td>
+    <td th:text="${order.toppingName}"></td>
+    <td th:text="${order.price}"></td>
+    <td th:text="${order.orderDate}"></td>
+  </tr>
+  </tbody>
+</table>
 </body>
 </html>

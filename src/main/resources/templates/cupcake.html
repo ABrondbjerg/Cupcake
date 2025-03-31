@@ -1,68 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Your Cupcake</title>
+    <title>Olsker Cupcakes</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
 </head>
 <body>
+<header class="header">
+    <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
+    <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
+</header>
 
-<h2>Choose a Cupcake</h2>
+<div class="toolbar">
+    <button>Login / Registrer</button>
+    <button>🛒 Kurv</button>
+</div>
 
-<!-- Form to submit the selection -->
-<form method="post" action="/add-to-basket">
-    <label for="top">Choose a Topping:</label>
-    <select id="top" name="top" required>
-        <option value="">Select a topping</option>
-        <option value="1">Chocolate (5.00 DKK)</option>
-        <option value="2">Blueberry (5.00 DKK)</option>
-        <option value="3">Raspberry (5.00 DKK)</option>
-        <option value="4">Crispy (6.00 DKK)</option>
-        <option value="5">Strawberry (6.00 DKK)</option>
-        <option value="6">Rum/Raisin (7.00 DKK)</option>
-        <option value="7">Orange (8.00 DKK)</option>
-        <option value="8">Lemon (8.00 DKK)</option>
-        <option value="9">Blue Cheese (9.00 DKK)</option>
-    </select>
+<div class="container">
+    <div class="order-box">
+        <h2>Bestil:</h2>
+        <select>
+            <option>Vælg bund</option>
+            <option>Vanilje</option>
+            <option>Chokolade</option>
+            <option>Red Velvet</option>
+        </select>
+        <select>
+            <option>Vælg topping</option>
+            <option>Chokoladecreme</option>
+            <option>Jordbærskum</option>
+            <option>Vaniljefrosting</option>
+        </select>
+        <select>
+            <option>Vælg antal</option>
+            <option>1</option>
+            <option>6</option>
+            <option>12</option>
+        </select>
+        <button>Læg i kurv</button>
+    </div>
 
-    <br><br>
-
-    <label for="bottom">Choose a Bottom:</label>
-    <select id="bottom" name="bottom" required>
-        <option value="">Select a bottom</option>
-        <option value="1">Chocolate (5.00 DKK)</option>
-        <option value="2">Vanilla (5.00 DKK)</option>
-        <option value="3">Nutmeg (5.00 DKK)</option>
-        <option value="4">Pistachio (6.00 DKK)</option>
-        <option value="5">Almond (7.00 DKK)</option>
-    </select>
-
-    <br><br>
-
-    <button type="submit">Add</button>
-</form>
-
-<hr>
-
-<h2>Basket</h2>
-<ul>
-    <li th:each="cupcake, iterStat : ${basket}">
-        <span th:text="${cupcake}"></span>
-        <!-- Delete Form with item index -->
-        <form method="post" action="/remove-from-basket" style="display:inline;">
-            <input type="hidden" name="index" th:value="${iterStat.index}" />
-            <button type="submit">X</button>
-        </form>
-    </li>
-</ul>
-
-<!-- Total Price Display -->
-<h3>Total Price: <span th:text="${totalPrice}"></span> DKK</h3>
-
-<!-- Pay Button -->
-<form method="post" action="/pay">
-    <button type="submit">Pay</button>
-</form>
-
+    <div class="product-box">
+        <img src="/public/images/cupcakebox.png" alt="Cupcake boks">
+        <button>Boks af glæder</button>
+        <p>Køb en boks med 12 forskellige cupcakes</p>
+    </div>
+</div>
 </body>
 </html>
