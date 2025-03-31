@@ -82,17 +82,63 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+/* Basket styling */
+.order-box ul {
+    list-style: none;
+    padding: 0;
+    text-align: center; /* Centrerer indholdet */
+}
 
-/* Boks af glæder */
+.order-box li {
+    display: flex;
+    justify-content: center; /* Sørger for centreret layout */
+    align-items: center;
+    gap: 10px; /* Giver lidt afstand mellem tekst og knap */
+    padding: 10px;
+    background: #f9f9f9;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+/* Rød slet-knap */
+.order-box li form button {
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-box li form button:hover {
+    background: darkred;
+}
+
+/* Justering af produktboksen */
 .product-box {
-    text-align: center;
+    display: flex;
+    flex-direction: column; /* Placerer elementerne i en lodret linje */
+    align-items: center; /* Centrerer horisontalt */
+    justify-content: center; /* Centrerer vertikalt */
+    text-align: center; /* Sørger for centreret tekst */
     flex: 1;
 }
+
+/* Justering af billedet */
 .product-box img {
     width: 100%;
     max-width: 300px;
     border-radius: 20px;
+    object-fit: cover; /* Sikrer, at billedet ikke bliver strakt */
 }
+
+/* Justering af knappen */
 .product-box button {
     margin-top: 15px;
     padding: 15px 30px;
@@ -102,6 +148,8 @@ body {
     font-weight: bold;
     border: none;
     cursor: pointer;
+    width: fit-content; /* Gør knappen så bred som dens indhold */
+    font-size: 16px;
 }
 .product-box p {
     font-size: 14px;
