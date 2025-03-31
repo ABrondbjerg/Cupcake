@@ -17,11 +17,15 @@
         <h2>Velkommen til Cupcake</h2>
         <p>Please login:</p>
 
-        <form method="post">
-            <input type="text" name="username" placeholder="Enter your Username" class="input-field" />
-            <input type="password" name="password" placeholder="Enter your Password" class="input-field" />
-            <button type="submit" formaction="/login" class="login-btn">Log på</button>
-        </form>
+
+<form method ="post">
+    <input type = "text" name = "username" placeholder="Enter your Username"/>
+    <input  type = "password" name = "password" placeholder="Enter your Password"/>
+    <button type = "submit" formaction="/login">Log på</button>
+
+    <div><p th:text="${message}"></p></div>
+</form>
+<p><a href="createuser.html" th:href="@{/createuser}">Create user</a></p>
 
         <div><p th:text="${message}" class="error-message"></p></div>
         <p><a href="createuser.html" th:href="@{/createuser}" class="create-user-link">Create user</a></p>

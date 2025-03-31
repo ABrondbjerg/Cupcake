@@ -64,7 +64,8 @@
 <h2>Basket</h2>
 <ul>
     <li th:each="cupcake, iterStat : ${basket}">
-        <span th:text="|${cupcake.quantity} ${cupcake.toppingName} with ${cupcake.bottomName} - ${cupcake.totalPrice} DKK|"></span>
+span th:text="|${cupcake.quantity} ${cupcake.toppingName} with ${cupcake.bottomName} - ${cupcake.totalPrice} DKK|"></span>
+
         <!-- Delete Form with item index -->
         <form method="post" action="/remove-from-basket" style="display:inline;">
             <input type="hidden" name="index" th:value="${iterStat.index}" />
@@ -73,12 +74,13 @@
     </li>
 </ul>
 
-<!-- Total Price Display -->
 <h3>Total Price: <span th:text="${totalPrice}"></span> DKK</h3>
 
+
+
 <!-- Pay Button -->
-<form method="post" action="/pay">
-    <button type="submit">Pay</button>
+<form method="post" action="/checkout">
+    <button type="submit">Checkout</button>
 </form>
 
 </body>
