@@ -35,24 +35,25 @@ public class CupcakeController {
     private static void addToBasket(Context ctx) {
         String top = ctx.formParam("top");
         String bottom = ctx.formParam("bottom");
+        String quantityStr = ctx.formParam("quantity");
 
-        if (top != null && bottom != null && !top.isEmpty() && !bottom.isEmpty()) {
+        if (top != null && bottom != null && !top.isEmpty() && !bottom.isEmpty() && quantityStr != null && !quantityStr.isEmpty()) {
             try {
                 int topId = Integer.parseInt(top);
                 int bottomId = Integer.parseInt(bottom);
+                int quantity = Integer.parseInt(quantityStr);
 
                 // 🔹 Fetch names from IDs
                 String topName = getToppingNameById(topId);
                 String bottomName = getBottomNameById(bottomId);
-
                 double topPrice = getToppingPriceById(topId);
                 double bottomPrice = getBottomPriceById(bottomId);
-                double totalPrice = topPrice + bottomPrice;
+                double totalPrice = (topPrice + bottomPrice) * quantity;
 
-                System.out.println("Selected: " + topName + " and " + bottomName + " - Total: $" + totalPrice);
+                System.out.println("Selected: " + topName + " and " + bottomName + "Quantity: " + quantity + " - Total: $" + totalPrice);
 
                 // ✅ Pass names to OrderItem
-                OrderItem orderItem = new OrderItem(topId, bottomId, topName, bottomName, totalPrice, topPrice, bottomPrice);
+                OrderItem orderItem = new OrderItem(topId, bottomId, topName, bottomName, totalPrice, topPrice, bottomPrice, quantity);
 
                 List<OrderItem> basket = ctx.sessionAttribute("basket");
                 if (basket == null) {

@@ -8,8 +8,9 @@ public class OrderItem {
     private double totalPrice;
     private double toppingPrice;
     private double bottomPrice;
+    private int quantity;
 
-    public OrderItem(int toppingId, int bottomId, String toppingName, String bottomName, double totalPrice, double toppingPrice, double bottomPrice) {
+    public OrderItem(int toppingId, int bottomId, String toppingName, String bottomName, double totalPrice, double toppingPrice, double bottomPrice, int quantity) {
         this.toppingId = toppingId;
         this.bottomId = bottomId;
         this.toppingName = toppingName;  // ✅ Assign name
@@ -17,6 +18,7 @@ public class OrderItem {
         this.totalPrice = totalPrice;
         this.toppingPrice = toppingPrice;
         this.bottomPrice = bottomPrice;
+        this.quantity = quantity;
     }
 
     public int getToppingId() {
@@ -46,6 +48,8 @@ public class OrderItem {
     public double getBottomPrice() {
         return bottomPrice;
     }
+
+    public int getQuantity() { return quantity; }
 
     @Override
     public String toString() {

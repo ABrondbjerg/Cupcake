@@ -27,6 +27,7 @@
 
     <br><br>
 
+    <!-- Quantity Selection -->
     <label for="bottom">Choose a Bottom:</label>
     <select id="bottom" name="bottom" required>
         <option value="">Select a bottom</option>
@@ -39,6 +40,22 @@
 
     <br><br>
 
+
+    <label for="quantity">Choose quantity:</label>
+    <select id="quantity" name="quantity" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+
+
     <button type="submit">Add</button>
 </form>
 
@@ -47,7 +64,7 @@
 <h2>Basket</h2>
 <ul>
     <li th:each="cupcake, iterStat : ${basket}">
-        <span th:text="${cupcake}"></span>
+        <span th:text="${cupcake.quantity} + ' x ' +  + ' + ' + cupcake.bottomName + ' - ' + cupcake.totalPrice"></span>
         <!-- Delete Form with item index -->
         <form method="post" action="/remove-from-basket" style="display:inline;">
             <input type="hidden" name="index" th:value="${iterStat.index}" />
