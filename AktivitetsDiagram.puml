@@ -1,6 +1,6 @@
 @startuml
 start
-    :Bruger besøger forsiden;
+    :Brugeren besøger forsiden;
     :Bruger vælger 'Login' eller 'Opret bruger';
 
     if (Har allerede en konto?) then (Ja)

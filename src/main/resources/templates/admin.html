@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Cupcake Ordrer</title>
+  <link rel="stylesheet" href="/public/css/adminStyle.css">
+</head>
+<body>
+
+<header class="header">
+  <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
+  <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
+</header>
+
+<table>
+  <thead>
+  <tr>
+    <th>Ordre ID</th>
+    <th>Bottom</th>
+    <th>Topping</th>
+    <th>Antal</th>
+    <th>Dato</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="order : ${orders}">
+    <td th:text="'#' + ${order.orderId}"></td>
+    <td th:text="${order.bottomName}"></td>
+    <td th:text="${order.toppingName}"></td>
+    <td th:text="${order.price}"></td>
+    <td th:text="${order.orderDate}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
