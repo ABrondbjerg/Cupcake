@@ -52,39 +52,32 @@ public class UserController {
         } else {
             ctx.attribute("message", "Dine to passwords matcher ikke! Prøv igen");
             ctx.render("createuser.html");
-
         }
-
-
     }
 
 
     public static void login(Context ctx, ConnectionPool connectionPool) {
-        //hent form parametre
-        String username= ctx.formParam("username");
+        String username = ctx.formParam("username");
         String password = ctx.formParam("password");
 
-        // check om bruger findes i DB med de angivne username + password
         try {
-            User user = UserMapper.login(username,password, connectionPool);
+            User user = UserMapper.login(username, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
 
-            //Omdirigere dig alt efter hvilken rolle du har
-            if ("admin".equals(user.getRole())){
-                //Admin users bliver ført til admin siden
+            System.out.println("🔹 User logged in: " + user.getUserId()); // Debugging
+            System.out.println("🔹 Stored in session: " + ctx.sessionAttribute("currentUser"));
+
+            if ("admin".equals(user.getRole())) {
                 ctx.render("admin_placeholder.html");
-            }else{
-                //Normale users går til cupcake.html siden
+            } else {
                 ctx.render("cupcake.html");
             }
-
         } catch (DatabaseException e) {
-            //Fanger login fejl
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
-
     }
+
 
     //Ny metode der sikre at det kun er admins der kan komme ind på admin siden
     public static void ensureAdmin(Context ctx){

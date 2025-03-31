@@ -24,8 +24,14 @@ public class UserMapper
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("user_id");
+                String fetchedUsername = rs.getString("user_name");
+                String fetchedPassword = rs.getString("password");  // Get the actual password from DB
                 String role = rs.getString("role");
-                return new User(id, userName, password, role);
+
+                // 🔹 Print the fetched values to debug
+                System.out.println("🔹 Fetched from DB: ID=" + id + ", Username=" + fetchedUsername + ", Role=" + role);
+
+                return new User(id, fetchedUsername, fetchedPassword, role);
             } else {
                 throw new DatabaseException("Fejl i login. Forkert brugernavn eller adgangskode.");
             }
@@ -33,6 +39,7 @@ public class UserMapper
             throw new DatabaseException("DB fejl", e.getMessage());
         }
     }
+
 
 
 

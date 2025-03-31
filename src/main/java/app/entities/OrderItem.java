@@ -1,56 +1,91 @@
 package app.entities;
 
 public class OrderItem {
-    private int toppingId;
+    private int topId;
     private int bottomId;
-    private String toppingName;  // ✅ Added
-    private String bottomName;   // ✅ Added
+    private String topName;
+    private String bottomName;
     private double totalPrice;
-    private double toppingPrice;
+    private double topPrice;
     private double bottomPrice;
 
-    public OrderItem(int toppingId, int bottomId, String toppingName, String bottomName, double totalPrice, double toppingPrice, double bottomPrice) {
-        this.toppingId = toppingId;
+    public OrderItem(int topId, int bottomId, String topName, String bottomName, double totalPrice, double topPrice, double bottomPrice) {
+        this.topId = topId;
         this.bottomId = bottomId;
-        this.toppingName = toppingName;  // ✅ Assign name
-        this.bottomName = bottomName;    // ✅ Assign name
+        this.topName = topName;
+        this.bottomName = bottomName;
         this.totalPrice = totalPrice;
-        this.toppingPrice = toppingPrice;
+        this.topPrice = topPrice;
         this.bottomPrice = bottomPrice;
     }
 
-    public int getToppingId() {
-        return toppingId;
+    public int getTopId() {
+        return topId;
+    }
+
+    public void setTopId(int topId) {
+        this.topId = topId;
     }
 
     public int getBottomId() {
         return bottomId;
     }
 
-    public String getToppingName() {  // ✅ Getter for name
-        return toppingName;
+    public void setBottomId(int bottomId) {
+        this.bottomId = bottomId;
     }
 
-    public String getBottomName() {   // ✅ Getter for name
+    public String getTopName() {
+        return topName;
+    }
+
+    public void setTopName(String topName) {
+        this.topName = topName;
+    }
+
+    public String getBottomName() {
         return bottomName;
+    }
+
+    public void setBottomName(String bottomName) {
+        this.bottomName = bottomName;
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
 
-    public double getToppingPrice() {
-        return toppingPrice;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getTopPrice() {
+        return topPrice;
+    }
+
+    public void setTopPrice(double topPrice) {
+        this.topPrice = topPrice;
     }
 
     public double getBottomPrice() {
         return bottomPrice;
     }
 
+    public void setBottomPrice(double bottomPrice) {
+        this.bottomPrice = bottomPrice;
+    }
+
     @Override
     public String toString() {
-        return "Topping: " + toppingName + " ($" + toppingPrice + "), " +
-                "Bottom: " + bottomName + " ($" + bottomPrice + "), " +
-                "Total Price: $" + totalPrice;
+        return "OrderItem{" +
+                "topId=" + topId +
+                ", bottomId=" + bottomId +
+                ", topName='" + topName + '\'' +
+                ", bottomName='" + bottomName + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", topPrice=" + topPrice +
+                ", bottomPrice=" + bottomPrice +
+                '}';
     }
 }
+
