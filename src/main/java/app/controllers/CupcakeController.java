@@ -220,4 +220,5 @@ public class CupcakeController {
         ctx.attribute("message", "");
         ctx.render("index.html");
     }
+
 }
