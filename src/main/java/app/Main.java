@@ -32,7 +32,7 @@ public class Main {
 
         // Routing
 
-        app.get("/", ctx ->  ctx.render("index.html"));
+        app.get("/", ctx ->  ctx.render("cupcake.html"));
         UserController.addRoutes(app,connectionPool);
         CupcakeController.addRoutes(app, connectionPool);
     }

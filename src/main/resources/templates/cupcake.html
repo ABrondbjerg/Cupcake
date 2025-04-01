@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olsker Cupcakes</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/styles.css" th:href="@{/css/styles.css}">
 </head>
 <body>
 <header class="header">
-    <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
-    <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
+    <img src="/public/images/cupckaebanner2.png" th:src="@{/images/cupckaebanner2.png}" alt="Cupcakes" class="background-img">
+    <img src="/images/olskerlogo.png" th:src="@{/images/olskerlogo.png}" alt="Olsker Cupcakes" class="logo">
 </header>
 
 <div class="toolbar">
-    <button>Login / Registrer</button>
+    <!-- Viser brugerens e-mail, hvis de er logget ind -->
+    <span th:if="${session.currentUser != null}" th:text="${session.currentUser.username}" class="user-email"></span>
+
+    <!-- Viser login-knappen, hvis de ikke er logget ind -->
+    <form method="post" action="/login" th:if="${session.currentUser == null}">
+        <button>Login / Registrer</button>
+    </form>
     <button>🛒 Kurv</button>
 </div>
 
@@ -59,7 +65,7 @@
         <h2>Basket</h2>
         <ul>
             <li th:each="cupcake, iterStat : ${basket}">
-                span th:text="|${cupcake.quantity} ${cupcake.toppingName} with ${cupcake.bottomName} - ${cupcake.totalPrice} DKK|"></span>
+                <span th:text="|${cupcake.quantity} ${cupcake.toppingName} with ${cupcake.bottomName} - ${cupcake.totalPrice} DKK|"></span>
 
                 <!-- Delete Form with item index -->
                 <form method="post" action="/remove-from-basket" style="display:inline;">
@@ -78,7 +84,7 @@
     </div>
 
     <div class="product-box">
-        <img src="/public/images/cupcakebox.png" alt="Cupcake boks">
+        <img src="/public/images/cupcakebox.png" alt="Cupcake boks" th:src="@{/images/cupcakebox.png}">
         <button>Box of Joy</button>
         <p>Køb en boks med 12 forskellige cupcakes</p>
     </div>

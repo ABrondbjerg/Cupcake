@@ -70,7 +70,7 @@ public class UserController {
             if ("admin".equals(user.getRole())) {
                 ctx.render("admin_placeholder.html");
             } else {
-                ctx.render("cupcake.html");
+                ctx.redirect("/cupcake.html");
             }
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
@@ -88,5 +88,4 @@ public class UserController {
             ctx.redirect("/cupcake.html");
         }
     }
-
 }

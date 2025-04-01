@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login - Cupcake</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/indexStyle.css">
+    <link rel="stylesheet" href="/public/css/indexStyle.css" th:href="@{/css/indexStyle.css}">
 </head>
 <body>
 <header class="header">
-    <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
-    <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
+    <img src="/public/images/cupckaebanner2.png" th:src="@{/images/cupckaebanner2.png}" alt="Cupcakes" class="background-img">
+    <img src="/images/olskerlogo.png" th:src="@{/images/olskerlogo.png}" alt="Olsker Cupcakes" class="logo">
 </header>
 
 <div class="container">
@@ -23,7 +23,6 @@
     <input  type = "password" name = "password" placeholder="Enter your Password" class="input-field"/>
     <button type = "submit" formaction="/login" class="login-btn">Log på</button>
 </form>
-
         <div><p th:text="${message}" class="error-message"></p></div>
         <p><a href="createuser.html" th:href="@{/createuser}" class="create-user-link">Create user</a></p>
     </div>

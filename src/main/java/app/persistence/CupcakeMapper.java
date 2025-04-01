@@ -1,43 +1,65 @@
 package app.persistence;
 
+import app.entities.OrderItem;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CupcakeMapper {
 
 
-    public static void addToBasket(ConnectionPool connectionPool, int userId, String toppingName, String bottomName, double totalPrice) {
-        String sql = "INSERT INTO basket (user_id, topping_name, bottom_name, total_price) VALUES (?, ?, ?, ?)";
+    public static int addToBasket(ConnectionPool connectionPool, int userId, String topName, String bottomName, double totalPrice, int quantity) {
+        String sql = "INSERT INTO orders (user_id, topping_name, bottom_name, quantity, total_price) VALUES (?, ?, ?, ?, ?) RETURNING id"; // PostgreSQL
+        int orderId = -1;
 
-        try (Connection conn = connectionPool.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            stmt.setInt(1, userId);
-            stmt.setString(2, toppingName);  // Use correct column name
-            stmt.setString(3, bottomName);   // Use correct column name
-            stmt.setDouble(4, totalPrice);
+            ps.setInt(1, userId);
+            ps.setString(2, topName);
+            ps.setString(3, bottomName);
+            ps.setInt(4, quantity);
+            ps.setDouble(5, totalPrice);
 
-            stmt.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                orderId = rs.getInt("id");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return orderId; // ✅ Return the new order_id
     }
 
-    public static void removeFromBasket(ConnectionPool connectionPool, int userId, String toppingName, String bottomName) {
-        String sql = "DELETE FROM basket WHERE user_id = ? AND topping_name = ? AND bottom_name = ?";
 
-        try (Connection conn = connectionPool.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public static void removeFromBasket(ConnectionPool connectionPool, int userId, String topping, String bottom) {
 
-            stmt.setInt(1, userId);
-            stmt.setString(2, toppingName);
-            stmt.setString(3, bottomName);
+        String sql = "DELETE FROM basket WHERE ctid IN (" +
+                "SELECT ctid FROM basket " +
+                "WHERE user_id = ? AND topping_name = ? AND bottom_name = ? " +
+                "LIMIT 1" +
+                ")";
 
-            stmt.executeUpdate();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setString(2, topping);
+            ps.setString(3, bottom);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("✅ Item deleted from DB: " + topping + " " + bottom);
+            } else {
+                System.out.println("❌ No item found in DB for deletion: " + topping + " " + bottom);
+            }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("DB error: " + e.getMessage());
         }
     }
-
 
 
     public static String getToppingNameById(ConnectionPool connectionPool, int id) {
@@ -120,5 +142,25 @@ public class CupcakeMapper {
         return 0.0; // Return 0 if not found
     }
 
+    public static void checkoutBasket(ConnectionPool connectionPool, int userId) {
+        String insertSql = "INSERT INTO orders (user_id, topping_name, bottom_name, total_price, quantity) " +
+                "SELECT user_id, topping_name, bottom_name, total_price, quantity FROM basket WHERE user_id = ?";
+        String deleteSql = "DELETE FROM basket WHERE user_id = ?";
 
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement insertStmt = connection.prepareStatement(insertSql);
+             PreparedStatement deleteStmt = connection.prepareStatement(deleteSql)) {
+
+            // Insert items from basket into orders table
+            insertStmt.setInt(1, userId);
+            insertStmt.executeUpdate();
+
+            // Remove items from the basket after they have been transferred
+            deleteStmt.setInt(1, userId);
+            deleteStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("DB error during checkout: " + e.getMessage());
+        }
+    }
 }

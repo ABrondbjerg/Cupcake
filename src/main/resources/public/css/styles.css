@@ -155,3 +155,8 @@ body {
     font-size: 14px;
     color: white;
 }
+.user-email {
+    font-weight: bold;
+    color: #6410F5;
+    padding: 10px;
+}

@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Cupcake Ordrer</title>
-  <link rel="stylesheet" href="/public/css/adminStyle.css">
+  <link rel="stylesheet" href="/public/css/adminStyle.css" th:href="@{/css/adminStyle.css}">
 </head>
 <body>
 
 <header class="header">
-  <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
-  <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
+  <img src="/public/images/cupckaebanner2.png" th:src="@{/images/cupckaebanner2.png}" alt="Cupcakes" class="background-img">
+  <img src="/images/olskerlogo.png" th:src="@{/images/olskerlogo.png}" alt="Olsker Cupcakes" class="logo">
 </header>
 
 <table>
