@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>checkout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Cupcake Ordrer</title>
     <link rel="stylesheet" href="/public/css/checkout_styles.css">
 </head>
 <body>
 
-<header>
-    <div class="back-button">←</div>
-    <img src="logo.png" alt="Olsker Cupcakes" class="logo">
-    <div class="login">email/login</div>
+<header class="header">
+    <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
+    <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
 </header>
 
 <div class="container">
     <div class="order-box">
-        <h3>ORDRE:</h3>
+        <h3>ORDERS:</h3>
         <div class="order-item">
             <span class="remove">❌</span>
             <span class="order-text">Ipsum ordre</span>
         </div>
-        <p><strong>Pris:</strong></p>
+        <p><strong>price:</strong></p>
     </div>
 
     <div class="delivery-box">
-        <h3>Levering:</h3>
-        <label for="name">Navn:</label>
+        <h3>Delivery:</h3>
+        <label>Name:</label>
         <input type="text" id="name">
 
         <label for="address">Adresse:</label>
         <input type="text" id="address">
 
-        <button class="order-button">Bestil</button>
+        <button class="order-button">PLACE ORDER</button>
     </div>
 </div>
 
