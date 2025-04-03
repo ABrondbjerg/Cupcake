@@ -1,14 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Olsker Cupcakes</title>
   <link rel="stylesheet" href="/public/css/checkoutStyle.css" th:href="@{/css/checkoutStyle.css}">
+
+
 </head>
 <body>
 
 <header class="header">
+
   <img src="/public/images/cupckaebanner2.png" th:src="@{/images/cupckaebanner2.png}" alt="Cupcakes" class="background-img">
   <img src="/public/images/olskerlogo.png" th:src="@{/images/olskerlogo.png}" alt="Olsker Cupcakes" class="logo">
 </header>
@@ -75,3 +79,4 @@
   <p th:text="${session.checkoutMessage}"></p>
 </div>
  -->
+
