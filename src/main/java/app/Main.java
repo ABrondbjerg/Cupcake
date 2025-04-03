@@ -27,11 +27,9 @@ public class Main {
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add("/public");
             config.jetty.modifyServletContextHandler(handler ->  handler.setSessionHandler(SessionConfig.sessionConfig()));
-            config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
-        }).start(7070);
+            config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));}).start(7070);
 
         // Routing
-
         app.get("/", ctx ->  ctx.render("cupcake.html"));
         UserController.addRoutes(app,connectionPool);
         CupcakeController.addRoutes(app, connectionPool);

@@ -1,0 +1,201 @@
+/* Stylesheet for the application */
+body {
+    margin: 0px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, white, #D414B7);
+}
+
+/* Header */
+.header {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: #d414b7;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header img {
+    position: absolute;
+    height: 100%;
+    object-fit: cover;
+}
+.logo {
+    position: relative;
+    z-index: 2;
+    max-width: 200px;
+    border-radius: 20px; /* Justér tallet for mere/mindre afrunding */
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    background: #f8f8f8;
+}
+.toolbar button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 25px;
+    background: #4BFAB0;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Main Layout */
+.container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.order-box, .delivery-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    height: 500px;
+    position: relative; /* Sikrer at prisen kan placeres i bunden */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Sørger for, at pris og indhold er i hver sin ende */
+}
+
+/* Basket styling */
+.order-box ul {
+    list-style: none;
+    padding: 0;
+    text-align: center; /* Centrerer indholdet */
+}
+
+.order-box li {
+    display: flex;
+    justify-content: center; /* Sørger for centreret layout */
+    align-items: center;
+    gap: 10px; /* Giver lidt afstand mellem tekst og knap */
+    padding: 10px;
+    background: #f9f9f9;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+/* Rød slet-knap */
+.order-box li form button {
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-box li form button:hover {
+    background: darkred;
+}
+
+/* Justering af produktboksen */
+.product-box {
+    display: flex;
+    flex-direction: column; /* Placerer elementerne i en lodret linje */
+    align-items: center; /* Centrerer horisontalt */
+    justify-content: center; /* Centrerer vertikalt */
+    text-align: center; /* Sørger for centreret tekst */
+    flex: 1;
+}
+
+/* Justering af billedet */
+.product-box img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 20px;
+    object-fit: cover; /* Sikrer, at billedet ikke bliver strakt */
+}
+
+/* Justering af knappen */
+.product-box button {
+    margin-top: 15px;
+    padding: 15px 30px;
+    border-radius: 50px;
+    background: #4BFAB0;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    width: fit-content; /* Gør knappen så bred som dens indhold */
+    font-size: 16px;
+}
+.product-box p {
+    font-size: 14px;
+    color: white;
+}
+.user-email {
+    font-weight: bold;
+    color: #6410F5;
+    padding: 10px;
+}
+
+/* Responsivitet for små skærme */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Ændrer layoutet til en kolonne på mindre skærme */
+        align-items: center; /* Centrerer indholdet */
+    }
+
+    .order-box, .delivery-box {
+        width: 90%; /* Gør boksene bredere på små skærme */
+        margin-bottom: 20px; /* Lægger afstand imellem boksene */
+    }
+}
+
+h3 {
+    font-weight: bold;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+/* Justering af knapper og input felter */
+input, .order-button {
+    width: 100%; /* Gør knapperne og input felterne bredere */
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 18px;
+}
+
+/* Baggrund og knap til bestilling */
+.order-button {
+    background: #4BFAB0;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+label{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: -10px;
+}
+
+p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: auto;
+    text-align: left;
+    padding-top: 20px;
+    border-top: 1px solid #ddd; /* Laver en visuel opdeling */
+}

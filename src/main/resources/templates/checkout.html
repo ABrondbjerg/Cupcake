@@ -1,39 +1,82 @@
 <!DOCTYPE html>
-<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Cupcake Ordrer</title>
-    <link rel="stylesheet" href="/public/css/checkout_styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olsker Cupcakes</title>
+  <link rel="stylesheet" href="/public/css/checkoutStyle.css" th:href="@{/css/checkoutStyle.css}">
+
+
 </head>
 <body>
 
 <header class="header">
-    <img src="/public/images/cupckaebanner2.png" alt="Cupcakes" class="background-img">
-    <img src="/public/images/olsker logo.png" alt="Olsker Cupcakes" class="logo">
+
+  <img src="/public/images/cupckaebanner2.png" th:src="@{/images/cupckaebanner2.png}" alt="Cupcakes" class="background-img">
+  <img src="/public/images/olskerlogo.png" th:src="@{/images/olskerlogo.png}" alt="Olsker Cupcakes" class="logo">
 </header>
 
-<div class="container">
-    <div class="order-box">
-        <h3>ORDERS:</h3>
-        <div class="order-item">
-            <span class="remove">❌</span>
-            <span class="order-text">Ipsum ordre</span>
-        </div>
-        <p><strong>price:</strong></p>
-    </div>
+<div class="toolbar">
 
-    <div class="delivery-box">
-        <h3>Delivery:</h3>
-        <label>Name:</label>
-        <input type="text" id="name">
+  <form action="/cupcake" method="get">
+    <button type="submit">Return to Cupcakes</button>
+  </form>
+  <!-- Viser brugerens e-mail, hvis de er logget ind -->
+  <span th:if="${session.currentUser != null}" th:text="${session.currentUser.username}" class="user-email"></span>
 
-        <label for="address">Adresse:</label>
-        <input type="text" id="address">
-
-        <button class="order-button">PLACE ORDER</button>
-    </div>
+  <!-- Viser login-knappen, hvis de ikke er logget ind -->
+  <form method="post" action="/login" th:if="${session.currentUser == null}">
+    <button>Login / Registrer</button>
+  </form>
+  <a href="/checkout">
+    <button type="button">🛒 Kurv</button>
+  </a>
 </div>
 
+<div class="container">
+  <div class="order-box">
+    <div th:if="${basket != null and basket.size() > 0}">
+    <h2>Your Basket:</h2>
+      <ul>
+        <li th:each="item, iterStat : ${basket}">
+          <span th:text="${item.toppingName}">Topping</span> -
+          <span th:text="${item.bottomName}">Bottom</span> -
+          <span th:text="${item.quantity}">Quantity</span> -
+          <span th:text="${item.totalPrice}">Total Price</span>
+
+          <!-- X Button to Remove Item -->
+          <form th:action="@{/remove-from-basket}" method="post" style="display:inline;">
+            <input type="hidden" th:name="index" th:value="${iterStat.index}" />
+            <button type="submit">X</button>
+          </form>
+        </li>
+      </ul>
+    <p><strong>Total Price: </strong><span th:text="${totalPrice}"></span></p>
+  </div>
+
+  <div class="delivery-box">
+    <h3>Delivery:</h3>
+    <label>Name:</label>
+    <input type="text" id="name">
+
+    <label for="address">Adresse:</label>
+    <input type="text" id="address">
+
+    <form action="/checkout" method="post">
+    <button class="order-button">PLACE ORDER</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
+
+
+
+<!-- Success Message -->
+<!--
+<div th:if="${session.checkoutMessage != null}">
+  <p th:text="${session.checkoutMessage}"></p>
+</div>
+ -->
+

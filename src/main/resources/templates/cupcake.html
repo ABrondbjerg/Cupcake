@@ -20,7 +20,9 @@
     <form method="post" action="/login" th:if="${session.currentUser == null}">
         <button>Login / Registrer</button>
     </form>
-    <button>🛒 Kurv</button>
+    <a href="/checkout">
+        <button type="button">🛒 Kurv</button>
+    </a>
 </div>
 
 <div class="container">
