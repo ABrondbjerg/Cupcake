@@ -21,7 +21,9 @@
         <button>Login / Registrer</button>
     </form>
     <a href="/checkout">
+        <form method="get" action="/checkout">
         <button type="button">🛒 Kurv</button>
+        </form>
     </a>
 </div>
 
@@ -80,7 +82,7 @@
         <h3>Total Price: <span th:text="${totalPrice}"></span> DKK</h3>
 
         <!-- Pay Button -->
-        <form method="post" action="/checkout">
+        <form method="get" action="/checkout">
             <button type="submit">Bestil</button>
         </form>
     </div>

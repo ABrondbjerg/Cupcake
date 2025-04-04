@@ -17,21 +17,27 @@
   <thead>
   <tr>
     <th>Ordre ID</th>
+    <th>User ID</th>
     <th>Bottom</th>
     <th>Topping</th>
     <th>Antal</th>
     <th>Dato</th>
   </tr>
   </thead>
+
   <tbody>
   <tr th:each="order : ${orders}">
     <td th:text="'#' + ${order.orderId}"></td>
+    <td th:text="'#' + ${order.userId}"></td>  <!-- Fix: Change from user.userId to order.userId -->
     <td th:text="${order.bottomName}"></td>
     <td th:text="${order.toppingName}"></td>
-    <td th:text="${order.price}"></td>
-    <td th:text="${order.orderDate}"></td>
+    <td th:text="${order.quantity}"></td>  <!-- Fix: Use quantity instead of price -->
+    <td th:text="${order.totalPrice}"></td>
   </tr>
   </tbody>
 </table>
+<form action="/admin/orders" method="get">
+  <button type="submit">Show Orders</button>
+</form>
 </body>
 </html>
