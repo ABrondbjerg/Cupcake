@@ -171,7 +171,7 @@ h3 {
 
 /* Justering af knapper og input felter */
 input, .order-button {
-    width: 100%; /* Gør knapperne og input felterne bredere */
+    width: 90%; /* Gør knapperne og input felterne bredere */
     padding: 12px;
     border-radius: 25px;
     font-size: 18px;

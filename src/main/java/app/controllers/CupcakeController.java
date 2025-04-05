@@ -119,7 +119,7 @@ public class CupcakeController {
             }
         }
 
-        ctx.redirect("/cupcake");
+        ctx.redirect("/checkout");
     }
 
     // Calculate the total price for the entire basket

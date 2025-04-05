@@ -17,7 +17,7 @@ public class UserController {
     app.post("createuser",ctx -> createUser(ctx,connectionPool));
     app.get("/admin", ctx-> {
         ensureAdmin(ctx);
-        ctx.render("admin_placeholder.html");
+        ctx.render("admin.html");
     });
     }
 
@@ -68,7 +68,7 @@ public class UserController {
             System.out.println("🔹 Stored in session: " + ctx.sessionAttribute("currentUser"));
 
             if ("admin".equals(user.getRole())) {
-                ctx.render("admin_placeholder.html");
+                ctx.render("admin.html");
             } else {
                 ctx.redirect("/cupcake");
             }
