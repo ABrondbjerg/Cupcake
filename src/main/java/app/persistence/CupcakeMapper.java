@@ -8,30 +8,29 @@ import java.util.List;
 
 public class CupcakeMapper {
 
-
     public static int addToBasket(ConnectionPool connectionPool, int userId, String topName, String bottomName, double totalPrice, int quantity) {
-        String sql = "INSERT INTO orders (user_id, topping_name, bottom_name, quantity, total_price) VALUES (?, ?, ?, ?, ?) RETURNING id"; // PostgreSQL
-        int orderId = -1;
-
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
+        String sql = "INSERT INTO basket (user_id, topping_name, bottom_name, quantity, total_price) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = connectionPool.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, userId);
             ps.setString(2, topName);
             ps.setString(3, bottomName);
             ps.setInt(4, quantity);
             ps.setDouble(5, totalPrice);
+            ps.executeUpdate();
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                orderId = rs.getInt("id");
+                return rs.getInt(1); // Return generated order ID
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error adding to basket: " + e.getMessage());
         }
-        return orderId; // ✅ Return the new order_id
+        return -1;
     }
+
+
+
 
 
     public static void removeFromBasket(ConnectionPool connectionPool, int userId, String topping, String bottom) {
