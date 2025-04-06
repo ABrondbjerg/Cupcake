@@ -1,4 +1,4 @@
-/* Stylesheet for the application */
+/* Generel styling */
 body {
     margin: 0px;
     font-family: Arial, sans-serif;
@@ -11,21 +11,22 @@ body {
     width: 100%;
     height: 200px;
     background: #d414b7;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .header img {
     position: absolute;
     height: 100%;
     object-fit: cover;
 }
+
 .logo {
     position: relative;
     z-index: 2;
     max-width: 200px;
-    border-radius: 20px; /* Justér tallet for mere/mindre afrunding */
+    border-radius: 20px;
 }
 
 /* Toolbar */
@@ -35,49 +36,53 @@ body {
     padding: 10px 20px;
     background: #f8f8f8;
 }
+
 .toolbar button {
     margin-left: 10px;
     padding: 10px 15px;
     border: none;
     border-radius: 25px;
-    background: #4BFAB0;
+    background: #4BFAB0; /* Grøn farve bevaret */
     color: white;
     font-weight: bold;
     cursor: pointer;
 }
 
-/* Main Layout */
+/* Container layout */
 .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: 50px auto;
     padding: 20px;
 }
 
+/* Styling af boksene */
 .order-box, .delivery-box {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 45%;
     height: 500px;
-    position: relative; /* Sikrer at prisen kan placeres i bunden */
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Sørger for, at pris og indhold er i hver sin ende */
+    justify-content: space-between;
 }
 
-/* Basket styling */
+/* Kurv styling */
 .order-box ul {
     list-style: none;
     padding: 0;
-    text-align: center; /* Centrerer indholdet */
+    text-align: center;
 }
 
 .order-box li {
     display: flex;
-    justify-content: center; /* Sørger for centreret layout */
+    justify-content: center;
     align-items: center;
-    gap: 10px; /* Giver lidt afstand mellem tekst og knap */
+    gap: 10px;
     padding: 10px;
     background: #f9f9f9;
     margin: 5px 0;
@@ -104,98 +109,43 @@ body {
     background: darkred;
 }
 
-/* Justering af produktboksen */
-.product-box {
-    display: flex;
-    flex-direction: column; /* Placerer elementerne i en lodret linje */
-    align-items: center; /* Centrerer horisontalt */
-    justify-content: center; /* Centrerer vertikalt */
-    text-align: center; /* Sørger for centreret tekst */
-    flex: 1;
-}
-
-/* Justering af billedet */
-.product-box img {
+/* Delivery inputfelter */
+.delivery-box input {
     width: 100%;
-    max-width: 300px;
-    border-radius: 20px;
-    object-fit: cover; /* Sikrer, at billedet ikke bliver strakt */
-}
-
-/* Justering af knappen */
-.product-box button {
-    margin-top: 15px;
-    padding: 15px 30px;
-    border-radius: 50px;
-    background: #4BFAB0;
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    width: fit-content; /* Gør knappen så bred som dens indhold */
-    font-size: 16px;
-}
-.product-box p {
-    font-size: 14px;
-    color: white;
-}
-.user-email {
-    font-weight: bold;
-    color: #6410F5;
+    box-sizing: border-box;
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
 }
 
-/* Responsivitet for små skærme */
+/* Bestil-knap */
+.order-button {
+    background: #4BFAB0; /* Grøn farve bevaret */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+/* Total Price skal være i bunden */
+.order-box p {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+/* Responsivitet */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Ændrer layoutet til en kolonne på mindre skærme */
-        align-items: center; /* Centrerer indholdet */
+        flex-direction: column;
+        align-items: center;
     }
 
     .order-box, .delivery-box {
-        width: 90%; /* Gør boksene bredere på små skærme */
-        margin-bottom: 20px; /* Lægger afstand imellem boksene */
+        width: 90%;
+        margin-bottom: 20px;
     }
-}
-
-h3 {
-    font-weight: bold;
-}
-
-.order-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
-}
-
-/* Justering af knapper og input felter */
-input, .order-button {
-    width: 100%; /* Gør knapperne og input felterne bredere */
-    padding: 12px;
-    border-radius: 25px;
-    font-size: 18px;
-}
-
-/* Baggrund og knap til bestilling */
-.order-button {
-    background: #4BFAB0;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-label{
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: -10px;
-}
-
-p {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: auto;
-    text-align: left;
-    padding-top: 20px;
-    border-top: 1px solid #ddd; /* Laver en visuel opdeling */
 }
