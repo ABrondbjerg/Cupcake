@@ -15,9 +15,7 @@ public class UserController {
     app.post("/login", ctx ->login(ctx, connectionPool));
     app.get("createuser",ctx -> ctx.render("createuser.html"));
     app.post("createuser",ctx -> createUser(ctx,connectionPool));
-    app.get("/admin", ctx-> {
-        ensureAdmin(ctx);
-        ctx.render("admin.html");
+    app.get("/admin", ctx-> { ensureAdmin(ctx); ctx.render("admin.html");
     });
     }
 
@@ -34,8 +32,6 @@ public class UserController {
             ctx.render("createuser.html");
             return;
         }
-
-
 
         if(password1.equals(password2)) {
             try {
