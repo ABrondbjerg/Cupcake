@@ -13,16 +13,17 @@
 </header>
 
 <div class="toolbar">
-    <!-- Viser brugerens e-mail, hvis de er logget ind -->
+    <!-- Show user email if logged in -->
     <span th:if="${session.currentUser != null}" th:text="${session.currentUser.username}" class="user-email"></span>
 
-    <!-- Viser login-knappen, hvis de ikke er logget ind -->
+    <!-- Show login button if not logged in -->
     <form method="post" action="/login" th:if="${session.currentUser == null}">
         <button>Login / Registrer</button>
     </form>
+
     <a href="/checkout">
         <form method="get" action="/checkout">
-        <button type="button">🛒 Kurv</button>
+            <button type="button">🛒 Kurv</button>
         </form>
     </a>
 </div>
@@ -66,14 +67,16 @@
             </select>
             <button type="submit">Tilføj</button>
         </form>
+
         <h2>Basket</h2>
         <ul>
             <li th:each="cupcake, iterStat : ${basket}">
                 <span th:text="|${cupcake.quantity} ${cupcake.toppingName} with ${cupcake.bottomName} - ${cupcake.totalPrice} DKK|"></span>
 
-                <!-- Delete Form with item index -->
+                <!-- Delete Form with source=cupcake -->
                 <form method="post" action="/remove-from-basket" style="display:inline;">
                     <input type="hidden" name="index" th:value="${iterStat.index}" />
+                    <input type="hidden" name="source" value="cupcake" />
                     <button type="submit">X</button>
                 </form>
             </li>
@@ -81,7 +84,7 @@
 
         <h3>Total Price: <span th:text="${totalPrice}"></span> DKK</h3>
 
-        <!-- Pay Button -->
+        <!-- Go to Checkout -->
         <form method="get" action="/checkout">
             <button type="submit">Bestil</button>
         </form>

@@ -18,7 +18,7 @@ public class CupcakeController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.get("/cupcake", CupcakeController::showCupcakePage);
         app.post("/add-to-basket", ctx -> CupcakeController.addToBasket(ctx, connectionPool));
-        app.post("/remove-from-basket", CupcakeController::removeFromBasket); // No need to pass connectionPool here
+        app.post("/remove-from-basket", ctx -> CupcakeController.removeFromBasket(ctx, connectionPool));
         app.post("/checkout", ctx -> CupcakeController.confirmCheckout(ctx, connectionPool));
         app.get("/checkout", CupcakeController::showCheckoutPage);
         app.get("/login", CupcakeController::showLogin);
@@ -87,7 +87,7 @@ public class CupcakeController {
 
 
 
-    private static void removeFromBasket(Context ctx) {
+    private static void removeFromBasket(Context ctx, ConnectionPool connectionPool) {
         User user = ctx.sessionAttribute("currentUser");
         if (user == null) {
             ctx.redirect("/login");
@@ -97,30 +97,31 @@ public class CupcakeController {
         String sessionKey = "basket_" + user.getUserId();
         List<OrderItem> basket = ctx.sessionAttribute(sessionKey);
 
-        String indexStr = ctx.formParam("index");
-        if (indexStr != null && basket != null) {
-            try {
-                int index = Integer.parseInt(indexStr);
+        int index = Integer.parseInt(ctx.formParam("index"));
+        String source = ctx.formParam("source");
 
-                if (index >= 0 && index < basket.size()) {
-                    // Get item to remove
-                    OrderItem item = basket.get(index);
+        if (basket != null && index >= 0 && index < basket.size()) {
+            // ✅ Get the item to remove
+            OrderItem item = basket.get(index);
 
-                    // ✅ Remove from session basket
-                    basket.remove(index);
-                    ctx.sessionAttribute(sessionKey, basket);
+            // ✅ Remove it from the database
+            CupcakeMapper.removeFromBasket(connectionPool, user.getUserId(), item.getToppingName(), item.getBottomName());
 
-                    // ✅ Remove from database
-                    ConnectionPool connectionPool = ctx.attribute("connectionPool");
-                    CupcakeMapper.removeFromBasket(connectionPool, user.getUserId(), item.getToppingName(), item.getBottomName());
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid index received: " + indexStr);
-            }
+            // ✅ Remove it from the session
+            basket.remove(index);
+            ctx.sessionAttribute(sessionKey, basket);
         }
 
-        ctx.redirect("/checkout");
+        // Redirect based on source
+        if ("checkout".equals(source)) {
+            ctx.redirect("/checkout");
+        } else {
+            ctx.redirect("/cupcake");
+        }
     }
+
+
+
 
     // Calculate the total price for the entire basket
     private static double calculateTotalPrice(List<OrderItem> basket) {

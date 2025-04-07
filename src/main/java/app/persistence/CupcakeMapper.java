@@ -29,10 +29,6 @@ public class CupcakeMapper {
         return -1;
     }
 
-
-
-
-
     public static void removeFromBasket(ConnectionPool connectionPool, int userId, String topping, String bottom) {
 
         String sql = "DELETE FROM basket WHERE ctid IN (" +
@@ -139,27 +135,5 @@ public class CupcakeMapper {
         }
 
         return 0.0; // Return 0 if not found
-    }
-
-    public static void checkoutBasket(ConnectionPool connectionPool, int userId) {
-        String insertSql = "INSERT INTO orders (user_id, topping_name, bottom_name, total_price, quantity) " +
-                "SELECT user_id, topping_name, bottom_name, total_price, quantity FROM basket WHERE user_id = ?";
-        String deleteSql = "DELETE FROM basket WHERE user_id = ?";
-
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement insertStmt = connection.prepareStatement(insertSql);
-             PreparedStatement deleteStmt = connection.prepareStatement(deleteSql)) {
-
-            // Insert items from basket into orders table
-            insertStmt.setInt(1, userId);
-            insertStmt.executeUpdate();
-
-            // Remove items from the basket after they have been transferred
-            deleteStmt.setInt(1, userId);
-            deleteStmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println("DB error during checkout: " + e.getMessage());
-        }
     }
 }
